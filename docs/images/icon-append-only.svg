@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title-append-only">
+  <title id="title-append-only">Three stacked layers with a plus mark above the top layer, representing append-only, immutable history</title>
+  <rect x="4" y="4" width="88" height="88" rx="20" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <line x1="48" y1="15" x2="48" y2="25" stroke="#0D9488" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="43" y1="20" x2="53" y2="20" stroke="#0D9488" stroke-width="3.5" stroke-linecap="round"/>
+  <rect x="24" y="32" width="48" height="11" rx="3" fill="#0D9488"/>
+  <rect x="24" y="47" width="48" height="11" rx="3" fill="none" stroke="#0D9488" stroke-width="3"/>
+  <rect x="24" y="62" width="48" height="11" rx="3" fill="none" stroke="#0D9488" stroke-width="3"/>
+</svg>

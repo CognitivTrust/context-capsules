@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" role="img" aria-labelledby="title-cli-terminal" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+  <title id="title-cli-terminal">Terminal mockup showing capsule init, capsule load, and capsule record decision with an evidence reference verified true</title>
+
+  <rect x="10" y="10" width="880" height="450" rx="14" fill="#0B0E14" stroke="#1E2433" stroke-width="1.5"/>
+  <rect x="10" y="10" width="880" height="38" rx="14" fill="#11141C"/>
+  <rect x="10" y="34" width="880" height="14" fill="#11141C"/>
+  <circle cx="36" cy="29" r="6" fill="#EF4444"/>
+  <circle cx="58" cy="29" r="6" fill="#F59E0B"/>
+  <circle cx="80" cy="29" r="6" fill="#10B981"/>
+  <text x="450" y="34" text-anchor="middle" font-size="12" fill="#64748B">capsule</text>
+
+  <text x="36" y="86" font-size="15" fill="#2DD4BF">$ <tspan fill="#E2E8F0">capsule init</tspan></text>
+  <text x="36" y="112" font-size="13" fill="#64748B">Initialized .capsule/ (drafted intent from git history)</text>
+
+  <text x="36" y="152" font-size="15" fill="#2DD4BF">$ <tspan fill="#E2E8F0">capsule load</tspan></text>
+  <text x="36" y="178" font-size="13" fill="#64748B">Objective: Ship the public OSS launch</text>
+
+  <text x="36" y="218" font-size="15" fill="#2DD4BF">$ <tspan fill="#E2E8F0">capsule record decision \</tspan></text>
+  <text x="56" y="242" font-size="14" fill="#CBD5E1">--decision "Use OAuth2 authorization-code flow" \</text>
+  <text x="56" y="266" font-size="14" fill="#CBD5E1">--evidence file:auth/google.py</text>
+
+  <text x="36" y="306" font-size="15" fill="#34D399">&#10003; verified: true</text>
+  <text x="36" y="330" font-size="13" fill="#64748B">capsule.md re-rendered</text>
+
+  <text x="36" y="370" font-size="15" fill="#2DD4BF">$ <tspan fill="#E2E8F0"></tspan></text>
+  <rect x="56" y="358" width="9" height="16" fill="#94A3B8"/>
+</svg>

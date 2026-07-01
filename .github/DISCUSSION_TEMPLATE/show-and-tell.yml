@@ -1,0 +1,19 @@
+title: "[Show] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share how you're using Context Capsules — workflows, agent integrations, or anything else you've built with it.
+
+  - type: textarea
+    id: showcase
+    attributes:
+      label: What you built or how you're using it
+    validations:
+      required: true
+
+  - type: textarea
+    id: links
+    attributes:
+      label: Links or screenshots

@@ -1,0 +1,20 @@
+title: "[Q] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ask a question about using or contributing to Context Capsules. Please check [SETUP.md](../../SETUP.md), [docs/FAQ.md](../../docs/FAQ.md), and [docs/TROUBLESHOOTING.md](../../docs/TROUBLESHOOTING.md) before posting.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: What you've tried
+      description: Commands you ran, docs you read, errors you saw.

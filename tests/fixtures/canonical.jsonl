@@ -1,0 +1,7 @@
+{"t":"intent","id":"e1","at":"2026-06-05T12:30:00Z","by":"cursor@device","objective":"Add Google OAuth","current_understanding":["auth uses JWT sessions"],"constraints":["email/password login must keep working"],"invariants":["session model unchanged"],"acceptance":["user can sign in with Google"]}
+{"t":"decision","id":"e2","at":"2026-06-05T12:41:00Z","by":"cursor@device","decision":"Use OAuth2 authorization-code flow","rationale":"server-side secret; no token in browser","evidence":[{"kind":"file","ref":"auth/google.py"},{"kind":"commit","ref":"a1b2c3d"}],"verified":false}
+{"t":"question","id":"q1","at":"2026-06-05T12:50:00Z","by":"cursor@device","q":"Enterprise SSO in scope?"}
+{"t":"resolution","id":"r1","at":"2026-06-05T12:55:00Z","by":"cursor@device","closes":"q1","answer":"No — defer."}
+{"t":"progress","id":"e3","at":"2026-06-05T13:10:00Z","by":"chatgpt-web","note":"frontend button wired","evidence":[{"kind":"commit","ref":"7d4e9f0"}],"verified":false}
+{"t":"task_start","id":"t1","at":"2026-06-05T13:20:00Z","by":{"principal":"cursor","subagent":"core-implementer","model":"gpt-5.4-medium","session":"sess-1","task":"task-1"},"task_id":"task-1","objective":"Wire CLI task lifecycle","for_intent":"e1"}
+{"t":"task_end","id":"t2","at":"2026-06-05T13:45:00Z","by":{"principal":"cursor","subagent":"core-implementer","model":"gpt-5.4-medium","session":"sess-1","task":"task-1"},"closes_task":"task-1","outcome":"completed","summary":"CLI and projection landed"}

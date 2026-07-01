@@ -1,0 +1,60 @@
+name: Schema change
+description: Propose a change to the Capsule Event Standard. These get extra scrutiny.
+labels: ["spec", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The on-disk event format is a contract that every tool implementing the standard depends on. Changes are governed strictly:
+
+        - **Additive / backward-compatible** (new optional field, new event type): MINOR bump, conformance test required.
+        - **Breaking** (rename, remove, retype, change required-ness): MAJOR bump, written rationale, explicit maintainer approval, conformance test update.
+
+        Please be thorough. Partial proposals will be asked to complete these sections before review begins.
+
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed change
+      description: Describe exactly what you want to add, change, or remove from the schema.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: bump
+    attributes:
+      label: Schema version bump required
+      options:
+        - MINOR (additive, backward-compatible)
+        - MAJOR (breaking change)
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Why is this change needed? What real problem does it solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: backward_compat
+    attributes:
+      label: Backward compatibility
+      description: How does this change affect existing logs? Can older readers round-trip the new fields?
+    validations:
+      required: true
+
+  - type: textarea
+    id: conformance
+    attributes:
+      label: Conformance test plan
+      description: Which test(s) in `tests/test_conformance.py` need to be added or updated?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered

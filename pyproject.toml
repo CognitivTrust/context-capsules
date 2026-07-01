@@ -1,0 +1,84 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "context-capsule"
+version = "0.1.0"
+description = "Local-first, append-only context capsule for a repository, driven by the capsule CLI."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Context Capsules contributors" }]
+keywords = ["context", "capsule", "cli", "local-first", "append-only", "ai", "developer-tools"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Version Control",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = ["portalocker==2.10.1"]
+
+[project.urls]
+Homepage = "https://github.com/CognitivTrust/context-capsules"
+Repository = "https://github.com/CognitivTrust/context-capsules"
+Documentation = "https://github.com/CognitivTrust/context-capsules/blob/main/SETUP.md"
+Changelog = "https://github.com/CognitivTrust/context-capsules/blob/main/CHANGELOG.md"
+"Bug Tracker" = "https://github.com/CognitivTrust/context-capsules/issues"
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "mypy", "build", "twine"]
+
+[project.scripts]
+capsule = "capsule.cli.app:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/capsule"]
+
+[tool.hatch.build.targets.sdist]
+only-include = [
+    "src/capsule",
+    "tests",
+    "README.md",
+    "SETUP.md",
+    "SKILL.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "CODE_OF_CONDUCT.md",
+    "SECURITY.md",
+    "SUPPORT.md",
+    "GOVERNANCE.md",
+    "LICENSE",
+    "NOTICE",
+    "pyproject.toml",
+    "docs",
+    "examples",
+]
+exclude = [
+    "**/__pycache__",
+    "**/*.pyc",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

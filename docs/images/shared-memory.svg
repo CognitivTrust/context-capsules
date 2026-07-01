@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" role="img" aria-labelledby="title-shared-memory" font-family="ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <title id="title-shared-memory">Diagram showing a developer and an AI agent both loading from and recording to the same capsule log</title>
+  <defs>
+    <marker id="arrow-slate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="998" height="418" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="50" y="150" width="220" height="110" rx="14" fill="#F8FAFC" stroke="#0F172A" stroke-width="2"/>
+  <text x="160" y="195" text-anchor="middle" font-size="18" font-weight="700" fill="#0F172A">Developer</text>
+  <text x="160" y="218" text-anchor="middle" font-size="13" fill="#64748B">at a terminal</text>
+  <rect x="730" y="150" width="220" height="110" rx="14" fill="#F8FAFC" stroke="#0F172A" stroke-width="2"/>
+  <text x="840" y="195" text-anchor="middle" font-size="18" font-weight="700" fill="#0F172A">AI agent</text>
+  <text x="840" y="218" text-anchor="middle" font-size="12" fill="#64748B">Cursor, Claude Code, Codex</text>
+  <rect x="390" y="135" width="220" height="140" rx="16" fill="#EEF2FF" stroke="#6366F1" stroke-width="2.5"/>
+  <text x="500" y="195" text-anchor="middle" font-size="16" font-weight="700" fill="#312E81" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">.capsule/</text>
+  <text x="500" y="216" text-anchor="middle" font-size="16" font-weight="700" fill="#312E81" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">log.jsonl</text>
+  <text x="500" y="240" text-anchor="middle" font-size="12" fill="#4338CA">one shared record</text>
+  <path d="M270,175 C330,160 360,160 390,168" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow-slate)"/>
+  <text x="330" y="155" text-anchor="middle" font-size="12.5" fill="#334155">record</text>
+  <path d="M390,245 C360,255 330,255 270,235" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow-slate)"/>
+  <text x="330" y="270" text-anchor="middle" font-size="12.5" fill="#334155">load</text>
+  <path d="M730,168 C700,160 670,160 610,175" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow-slate)"/>
+  <text x="670" y="155" text-anchor="middle" font-size="12.5" fill="#334155">record</text>
+  <path d="M610,235 C670,255 700,255 730,235" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow-slate)"/>
+  <text x="670" y="270" text-anchor="middle" font-size="12.5" fill="#334155">load</text>
+  <text x="500" y="340" text-anchor="middle" font-size="13" font-style="italic" fill="#64748B">the same reasoning, inherited by whichever tool opens the repo next</text>
+</svg>

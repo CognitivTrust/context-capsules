@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or discussion
+    url: https://github.com/CognitivTrust/context-capsules/discussions
+    about: For usage questions and general discussion, please use GitHub Discussions.
+  - name: Security vulnerability
+    url: https://github.com/CognitivTrust/context-capsules/blob/main/SECURITY.md
+    about: Do not open a public issue for security vulnerabilities. See SECURITY.md.

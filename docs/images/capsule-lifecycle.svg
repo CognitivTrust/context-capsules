@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 280" role="img" aria-labelledby="title-lifecycle" font-family="ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <title id="title-lifecycle">Capsule lifecycle: init, load, record, verify, render, then loop back to load at the next session</title>
+
+  <defs>
+    <marker id="arrow-step" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#94A3B8"/>
+    </marker>
+    <marker id="arrow-loop" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#6366F1"/>
+    </marker>
+  </defs>
+
+  <rect x="1" y="1" width="1118" height="278" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+
+  <!-- step cards: init, load, record, verify, render -->
+  <g>
+    <rect x="40" y="40" width="170" height="90" rx="12" fill="#F8FAFC" stroke="#6366F1" stroke-width="2"/>
+    <text x="125" y="78" text-anchor="middle" font-size="16" font-weight="700" fill="#0F172A">init</text>
+    <text x="125" y="100" text-anchor="middle" font-size="11.5" fill="#64748B">create .capsule/</text>
+  </g>
+  <line x1="210" y1="85" x2="248" y2="85" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow-step)"/>
+
+  <g>
+    <rect x="250" y="40" width="170" height="90" rx="12" fill="#F8FAFC" stroke="#0D9488" stroke-width="2"/>
+    <text x="335" y="78" text-anchor="middle" font-size="16" font-weight="700" fill="#0F172A">load</text>
+    <text x="335" y="100" text-anchor="middle" font-size="11.5" fill="#64748B">fold the log</text>
+  </g>
+  <line x1="420" y1="85" x2="458" y2="85" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow-step)"/>
+
+  <g>
+    <rect x="460" y="40" width="170" height="90" rx="12" fill="#F8FAFC" stroke="#7C3AED" stroke-width="2"/>
+    <text x="545" y="78" text-anchor="middle" font-size="16" font-weight="700" fill="#0F172A">record</text>
+    <text x="545" y="100" text-anchor="middle" font-size="11.5" fill="#64748B">append an event</text>
+  </g>
+  <line x1="630" y1="85" x2="668" y2="85" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow-step)"/>
+
+  <g>
+    <rect x="670" y="40" width="170" height="90" rx="12" fill="#F8FAFC" stroke="#D97706" stroke-width="2"/>
+    <text x="755" y="78" text-anchor="middle" font-size="16" font-weight="700" fill="#0F172A">verify</text>
+    <text x="755" y="100" text-anchor="middle" font-size="11.5" fill="#64748B">check evidence exists</text>
+  </g>
+  <line x1="840" y1="85" x2="878" y2="85" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow-step)"/>
+
+  <g>
+    <rect x="880" y="40" width="170" height="90" rx="12" fill="#F8FAFC" stroke="#0284C7" stroke-width="2"/>
+    <text x="965" y="78" text-anchor="middle" font-size="16" font-weight="700" fill="#0F172A">render</text>
+    <text x="965" y="100" text-anchor="middle" font-size="11.5" fill="#64748B">regenerate capsule.md</text>
+  </g>
+
+  <!-- loop back -->
+  <path d="M965,132 C965,210 335,210 335,132" fill="none" stroke="#6366F1" stroke-width="2.5" stroke-dasharray="1 0" marker-end="url(#arrow-loop)"/>
+  <text x="650" y="232" text-anchor="middle" font-size="13" fill="#4338CA" font-weight="600">next session &#8594; load again, anywhere, any tool</text>
+</svg>

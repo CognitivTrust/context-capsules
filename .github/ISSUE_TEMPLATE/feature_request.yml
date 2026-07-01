@@ -1,0 +1,51 @@
+name: Feature request
+description: Suggest an improvement or new capability.
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature. Please read [CONTRIBUTING.md](../CONTRIBUTING.md) first, especially the **Project principles** section. Proposals that conflict with the project's core invariants (local-first, in-repo storage, no telemetry, no server) will be declined.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What problem are you trying to solve? Describe it without mentioning a solution.
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: How would you like to see this addressed? Be as specific as possible.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What other approaches did you consider? Why are they insufficient?
+
+  - type: checkboxes
+    id: invariants
+    attributes:
+      label: Invariant check
+      description: Confirm your proposal is compatible with the project's core principles.
+      options:
+        - label: This does not add network calls to the core path.
+          required: true
+        - label: This does not require a server, account, or SaaS dependency.
+          required: true
+        - label: This does not require new storage-selection or storage-management behavior.
+          required: true
+        - label: This does not rewrite existing log entries.
+          required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Links, screenshots, related issues, or other context.

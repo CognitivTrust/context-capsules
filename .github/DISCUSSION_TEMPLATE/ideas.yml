@@ -1,0 +1,23 @@
+title: "[Idea] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share an idea for improving Context Capsules. Please check that your idea is compatible with the project invariants before posting.
+
+  - type: textarea
+    id: idea
+    attributes:
+      label: The idea
+      description: Describe what you'd like to see and why it would be valuable.
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem it solves
+      description: What concrete problem does this address?
+    validations:
+      required: true

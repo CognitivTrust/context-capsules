@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title-evidence">
+  <title id="title-evidence">Shield with a checkmark inside, representing existence-based evidence verification</title>
+  <rect x="4" y="4" width="88" height="88" rx="20" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <path d="M30,28 L48,21 L66,28 L66,46 C66,60 57,68 48,73 C39,68 30,60 30,46 Z"
+        fill="none" stroke="#7C3AED" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M38,47 L45,55 L60,38" fill="none" stroke="#7C3AED" stroke-width="4.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
