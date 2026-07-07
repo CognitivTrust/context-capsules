@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Global flags (`--repo`, `--format`, `--verbose`) are now accepted after `record <kind>` and `task <verb>` subcommands, not just before the top-level command, matching the documented "global on every command" behavior.
+
 Initial alpha cut of **Context Capsules**: a local-first, append-only decision log stored in-repo, driven by `capsule` CLI. This establishes the first usable V1 surface for local installs from source while the project is still preparing for a broader public release.
 
 ### Added
@@ -14,7 +18,6 @@ Initial alpha cut of **Context Capsules**: a local-first, append-only decision l
 - Pre-launch project files for contributors and early adopters: `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `SUPPORT.md`, `GOVERNANCE.md`, `.editorconfig`, and FAQ / troubleshooting docs.
 - GitHub community scaffolding for issues, discussions, pull requests, funding, code ownership, CI, and release automation.
 - Public-facing project docs and packaging updates for the first OSS commit, including `README.md`, `SETUP.md`, packaging metadata, and repository templates aligned to the current CLI-first, local-first V1.
-
 - **`context-capsule` package** available for local editable install with `pip install -e .`, exposing the `capsule` console script and `python -m capsule` entry point. Requires Python 3.11+. One runtime dependency: `portalocker` for cross-platform file locking.
 - **Capsule Event Standard v0.1.0**: typed, append-only JSONL events for `intent`, `decision`, `question`, `resolution`, `progress`, `task_start`, and `task_end`, with optional evidence refs (`file`, `commit`, `test`, `url`).
 - **In-repo storage layout**: `.capsule/log.jsonl` (source of truth), `.capsule/capsule.md` (regenerable human render), and `.capsule/.lock` (transient advisory lock).
