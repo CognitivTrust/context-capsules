@@ -13,6 +13,39 @@ def repo_from_args(args: argparse.Namespace) -> Path:
     return (args.repo if args.repo is not None else Path.cwd()).resolve()
 
 
+def global_flags_parent() -> argparse.ArgumentParser:
+    """Parent parser carrying --format/--repo/--verbose, suppressed so they
+    don't override a value already parsed by an earlier level.
+
+    Attach this as a ``parents=[...]`` entry on every subparser level (not
+    just the top level) so the global flags can appear anywhere on the
+    command line, e.g. both ``capsule --repo X record decision`` and
+    ``capsule record decision --repo X`` work, matching the README's promise
+    that these flags work "on every command".
+    """
+    parent = argparse.ArgumentParser(add_help=False)
+    parent.add_argument(
+        "--format",
+        choices=["text", "json"],
+        default=argparse.SUPPRESS,
+        dest="format",
+    )
+    parent.add_argument(
+        "--repo",
+        type=Path,
+        default=argparse.SUPPRESS,
+        dest="repo",
+        help="Repository whose .capsule/ should be used.",
+    )
+    parent.add_argument(
+        "--verbose",
+        action="store_true",
+        default=argparse.SUPPRESS,
+        dest="verbose",
+    )
+    return parent
+
+
 def add_by_arguments(parser: argparse.ArgumentParser, *, default: str | None = None) -> None:
     parser.add_argument("--by", default=None)
     parser.add_argument("--by-principal", dest="by_principal", default=None)

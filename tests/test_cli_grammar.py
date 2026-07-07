@@ -69,6 +69,62 @@ def test_tf1_missing_required_flag(invoke_cli: Any) -> None:
     assert "the following arguments are required: --question/-q" in res_q.stderr
 
 
+def test_th1_global_flags_after_two_level_command(invoke_cli: Any, tmp_path: Any) -> None:
+    """T-H1: --repo/--format/--verbose work after a two-level command
+    (`record <kind>`, `task <start|end>`), not just before the top-level
+    command or between it and the first subcommand. README promises these
+    flags work "on every command"."""
+    invoke_cli(["init", "--repo", str(tmp_path)])
+
+    after_kind = invoke_cli(
+        [
+            "record",
+            "decision",
+            "--decision",
+            "d",
+            "--rationale",
+            "r",
+            "--repo",
+            str(tmp_path),
+            "--format",
+            "json",
+        ]
+    )
+    assert after_kind.exit_code == 0, after_kind.stderr
+    assert json.loads(after_kind.stdout)["decision"] == "d"
+
+    after_task_subcommand = invoke_cli(
+        [
+            "task",
+            "start",
+            "--task-id",
+            "t1",
+            "--objective",
+            "obj",
+            "--repo",
+            str(tmp_path),
+            "--format",
+            "json",
+        ]
+    )
+    assert after_task_subcommand.exit_code == 0, after_task_subcommand.stderr
+    assert json.loads(after_task_subcommand.stdout)["task_id"] == "t1"
+
+    after_task_end = invoke_cli(
+        [
+            "task",
+            "end",
+            "--task-id",
+            "t1",
+            "--outcome",
+            "completed",
+            "--repo",
+            str(tmp_path),
+        ]
+    )
+    assert after_task_end.exit_code == 0, after_task_end.stderr
+
+
 def test_tf3_unknown_subcommand(invoke_cli: Any) -> None:
     """T-F3: unknown/deferred subcommand -> exit 2."""
     for sub in ["status", "diff", "revert", "stats", "connect", "mcp", "garbage"]:

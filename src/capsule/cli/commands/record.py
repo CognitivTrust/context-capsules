@@ -5,7 +5,12 @@ from __future__ import annotations
 import argparse
 import json
 
-from capsule.cli.commands import add_by_arguments, repo_from_args, resolve_by
+from capsule.cli.commands import (
+    add_by_arguments,
+    global_flags_parent,
+    repo_from_args,
+    resolve_by,
+)
 from capsule.cli.edge import parse_evidence
 from capsule.cli.formatting import Payload
 from capsule.engine import Engine, Event
@@ -19,27 +24,28 @@ def configure(parser: argparse.ArgumentParser) -> None:
     add_by_arguments(kind_parent, default="cli")
 
     kinds = parser.add_subparsers(dest="kind", required=True)
+    kind_parents = [kind_parent, global_flags_parent()]
 
-    intent = kinds.add_parser("intent", parents=[kind_parent])
+    intent = kinds.add_parser("intent", parents=kind_parents)
     intent.add_argument("--objective", required=True)
     intent.add_argument("--current-understanding", action="append", default=[])
     intent.add_argument("--constraint", action="append", default=[])
     intent.add_argument("--invariant", action="append", default=[])
     intent.add_argument("--acceptance", action="append", default=[])
 
-    decision = kinds.add_parser("decision", parents=[kind_parent])
+    decision = kinds.add_parser("decision", parents=kind_parents)
     decision.add_argument("--decision", required=True)
     decision.add_argument("--rationale", required=True)
     decision.add_argument("--evidence", action="append", default=[], type=parse_evidence)
 
-    question = kinds.add_parser("question", parents=[kind_parent])
+    question = kinds.add_parser("question", parents=kind_parents)
     question.add_argument("--question", "-q", required=True)
 
-    resolution = kinds.add_parser("resolution", parents=[kind_parent])
+    resolution = kinds.add_parser("resolution", parents=kind_parents)
     resolution.add_argument("--closes", required=True)
     resolution.add_argument("--answer", required=True)
 
-    progress = kinds.add_parser("progress", parents=[kind_parent])
+    progress = kinds.add_parser("progress", parents=kind_parents)
     progress.add_argument("--note", required=True)
     progress.add_argument("--evidence", action="append", default=[], type=parse_evidence)
 
