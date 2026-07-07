@@ -7,6 +7,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 
 from capsule import __version__
+from capsule.cli.commands import global_flags_parent
 from capsule.cli.formatting import Payload, format_output
 from capsule.engine import (
     CapsuleError,
@@ -27,27 +28,24 @@ class Command:
     run: Callable[[argparse.Namespace], Payload]
 
 
-def _global_flags(*, defaults: bool) -> argparse.ArgumentParser:
+def _global_flag_defaults() -> argparse.ArgumentParser:
+    """Top-level parent establishing the real defaults for global flags.
+
+    Every other level (subcommands, sub-subcommands) attaches
+    ``global_flags_parent()`` instead, whose flags default to
+    ``argparse.SUPPRESS`` so they don't clobber a value already supplied at
+    another level.
+    """
     parent = argparse.ArgumentParser(add_help=False)
-    parent.add_argument(
-        "--format",
-        choices=["text", "json"],
-        default="text" if defaults else argparse.SUPPRESS,
-        dest="format",
-    )
+    parent.add_argument("--format", choices=["text", "json"], default="text", dest="format")
     parent.add_argument(
         "--repo",
         type=pathlib.Path,
-        default=None if defaults else argparse.SUPPRESS,
+        default=None,
         dest="repo",
         help="Repository whose .capsule/ should be used.",
     )
-    parent.add_argument(
-        "--verbose",
-        action="store_true",
-        default=False if defaults else argparse.SUPPRESS,
-        dest="verbose",
-    )
+    parent.add_argument("--verbose", action="store_true", default=False, dest="verbose")
     return parent
 
 
@@ -128,7 +126,7 @@ _EXIT_FOR_ERROR: tuple[tuple[type[CapsuleError], ExitCode], ...] = (
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="capsule", parents=[_global_flags(defaults=True)])
+    parser = argparse.ArgumentParser(prog="capsule", parents=[_global_flag_defaults()])
     parser.add_argument(
         "--version",
         action="version",
@@ -136,9 +134,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
     for cmd in REGISTRY:
-        subparser = subparsers.add_parser(
-            cmd.name, help=cmd.help, parents=[_global_flags(defaults=False)]
-        )
+        subparser = subparsers.add_parser(cmd.name, help=cmd.help, parents=[global_flags_parent()])
         cmd.configure(subparser)
         subparser.set_defaults(_command=cmd)
     return parser

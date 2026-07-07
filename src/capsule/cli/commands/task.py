@@ -5,7 +5,12 @@ from __future__ import annotations
 import argparse
 import json
 
-from capsule.cli.commands import add_by_arguments, repo_from_args, resolve_by
+from capsule.cli.commands import (
+    add_by_arguments,
+    global_flags_parent,
+    repo_from_args,
+    resolve_by,
+)
 from capsule.cli.formatting import Payload
 from capsule.engine import Engine, Event
 
@@ -16,13 +21,13 @@ HELP = "Append task lifecycle events."
 def configure(parser: argparse.ArgumentParser) -> None:
     subcommands = parser.add_subparsers(dest="task_command", required=True)
 
-    start = subcommands.add_parser("start")
+    start = subcommands.add_parser("start", parents=[global_flags_parent()])
     start.add_argument("--task-id", required=True)
     start.add_argument("--objective", required=True)
     start.add_argument("--for-intent", default=None)
     add_by_arguments(start, default="cli")
 
-    end = subcommands.add_parser("end")
+    end = subcommands.add_parser("end", parents=[global_flags_parent()])
     end.add_argument("--task-id", required=True)
     end.add_argument("--outcome", required=True)
     end.add_argument("--summary", default=None)
