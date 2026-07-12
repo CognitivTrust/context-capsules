@@ -72,7 +72,7 @@ def test_th2_record_mapping(invoke_cli: Any, tmp_path: Any) -> None:
     log_res = invoke_cli(["--repo", str(tmp_path), "log", "--format", "json"])
     log_payload = json.loads(log_res.stdout)
     types = [e["t"] for e in log_payload]
-    assert types == ["intent", "decision", "question", "resolution", "progress"]
+    assert types == ["decision", "question", "resolution", "progress"]
 
 
 def test_th4_evidence_parse(invoke_cli: Any, tmp_path: Any) -> None:

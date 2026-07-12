@@ -33,7 +33,7 @@ Yash Shah currently triages issues, reviews pull requests, stewards the event st
 
 Before you write code, internalize the invariants. A PR that violates one of these will be asked to change, no matter how clean it is.
 
-1. **Local-first: zero network in the core path.** No telemetry, no analytics, no phone-home, no accounts. The only optional network use is a BYO-key LLM for cold-start drafting in `capsule init`, read from env/keyring and never persisted.
+1. **Local-first: zero network.** No telemetry, no analytics, no phone-home, no accounts, no exceptions — nothing in this tool ever makes a network call, not even at the CLI edge.
 2. **In-repo capsule storage.** V1 stores capsule data at `.capsule/log.jsonl` + `.capsule/capsule.md` + `.capsule/.lock`. Avoid adding selection state or extra storage surfaces without strong justification.
 3. **JSONL is the source of truth.** `capsule.md` is a regenerable render and is never read back as truth.
 4. **Events are immutable and append-only.** Never rewrite a prior line. An "edit" is a new event; a `revert` is a compensating event.
@@ -160,7 +160,7 @@ Examples:
 ```
 feat(verify): add url existence verifier behind --check-urls
 fix(store): quarantine torn final line instead of raising
-docs(readme): clarify BYO-key drafter scope
+docs(readme): clarify local-first network invariant
 ```
 
 Mark breaking changes with a `!` after the type/scope (`feat!:`) and a `BREAKING CHANGE:` footer. Keep the subject line under ~72 characters and write in the imperative mood.

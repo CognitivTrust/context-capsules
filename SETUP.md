@@ -50,12 +50,7 @@ This creates:
   .lock
 ```
 
-Initialization options:
-
-- `--draft git`: derive the first intent from recent commits
-- `--draft llm`: use an OpenAI-compatible BYO-key model
-- `--draft none`: start with an empty capsule
-- `--force`: initialize again without deleting the log
+Run it again with `--force` to reinitialize without deleting the existing log.
 
 ## Core Commands
 

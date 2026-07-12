@@ -6,7 +6,7 @@ from capsule.exit_codes import ExitCode
 
 def test_th3_read_commands(invoke_cli: Any, tmp_path: Any) -> None:
     """T-H3: load text/json, show text/json, log text/json."""
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
     invoke_cli(
         ["--repo", str(tmp_path), "record", "decision", "--decision", "D1", "--rationale", "R1"]
     )
@@ -52,7 +52,7 @@ def test_th3_read_commands(invoke_cli: Any, tmp_path: Any) -> None:
 
 def test_te3_large_empty_log(invoke_cli: Any, tmp_path: Any) -> None:
     """T-E3: large/empty log. log --limit."""
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
 
     # empty log
     res = invoke_cli(["--repo", str(tmp_path), "--format", "json", "log"])
@@ -99,7 +99,7 @@ def test_tf4_read_no_capsule(invoke_cli: Any, tmp_path: Any) -> None:
 
 def test_ts2_golden_read(invoke_cli: Any, tmp_path: Any) -> None:
     """T-S2, T-S3: golden fold/render shapes and field-name fidelity."""
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
     invoke_cli(
         [
             "--repo",

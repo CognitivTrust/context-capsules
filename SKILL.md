@@ -13,7 +13,15 @@ When you parse output programmatically, pass `--format json` (the default is hum
 
 ## 1. Start every task with `capsule load`
 
-Run:
+If this working tree has no `.capsule/` yet, initialize it and seed the first intent yourself from recent history:
+
+```bash
+capsule init
+git log --oneline -n 20
+capsule record intent --by "<tool-name>" --objective "<from recent history>" --current-understanding "<what the repo appears to be>"
+```
+
+Either way, run:
 
 ```bash
 capsule load
@@ -87,6 +95,6 @@ Add `--dry-run` to preview which events would be applied or skipped before writi
 ## 7. Guardrails
 
 - Do not treat `verified: false` as a write failure; it is recorded data.
-- Do not add network behavior to the core path.
+- Do not add network behavior anywhere in the tool.
 - Do not rewrite old log entries. Corrections are new events.
 - Prefer accurate, durable notes over noisy status updates.

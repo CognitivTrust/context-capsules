@@ -10,7 +10,7 @@
   <text x="450" y="34" text-anchor="middle" font-size="12" fill="#64748B">capsule</text>
 
   <text x="36" y="86" font-size="15" fill="#2DD4BF">$ <tspan fill="#E2E8F0">capsule init</tspan></text>
-  <text x="36" y="112" font-size="13" fill="#64748B">Initialized .capsule/ (drafted intent from git history)</text>
+  <text x="36" y="112" font-size="13" fill="#64748B">Initialized empty capsule at .capsule/</text>
 
   <text x="36" y="152" font-size="15" fill="#2DD4BF">$ <tspan fill="#E2E8F0">capsule load</tspan></text>
   <text x="36" y="178" font-size="13" fill="#64748B">Objective: Ship the public OSS launch</text>

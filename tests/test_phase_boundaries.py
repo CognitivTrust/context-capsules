@@ -35,7 +35,7 @@ def test_tb1_commands_unregistered(invoke_main: Any) -> None:
 
 def test_tb4_json_freeze(invoke_main: Any, tmp_path: Path) -> None:
     """T-B4: JSON freeze."""
-    invoke_main(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_main(["--repo", str(tmp_path), "init"])
 
     res_load = invoke_main(["--repo", str(tmp_path), "--format", "json", "load"])
     assert res_load.exit_code == 0

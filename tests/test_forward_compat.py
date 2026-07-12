@@ -4,7 +4,7 @@ from typing import Any
 
 def test_ts1_forward_compat_round_trip(invoke_cli: Any, tmp_path: Any, monkeypatch: Any) -> None:
     """T-S1: round-trip & unknown-field preservation."""
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
 
     # We'll inject an event with an unknown field via apply
     patch_text = """```capsule-patch

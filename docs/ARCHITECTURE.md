@@ -33,9 +33,7 @@ src/capsule/
       doctor.py        # capsule doctor
     edge/
       clipboard.py     # system clipboard read/write (OS-specific, CLI edge only)
-      drafter.py       # BYO-key LLM drafter for capsule init (CLI edge only)
       evidence.py      # evidence verifier registry and CLI glue
-      git.py           # git log reader for --draft git (CLI edge only)
       patch.py         # CAPSULE-PATCH block parser
 
   engine/
@@ -57,9 +55,9 @@ src/capsule/
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│                   CLI (cli/)                         │
+│                   CLI (cli/)                        │
 │  arg parsing · exit codes · formatting · --format   │
-│  edge/: clipboard · drafter · git · patch           │
+│  edge/: clipboard · evidence · patch                │
 └──────────────────┬──────────────────────────────────┘
                    │  calls
 ┌──────────────────▼──────────────────────────────────┐
@@ -74,7 +72,7 @@ src/capsule/
 └─────────────────────────────────────────────────────┘
 ```
 
-**The CLI layer** handles user-facing concerns: argument parsing, output formatting, clipboard access, git history reading, LLM drafting, and CAPSULE-PATCH ingestion. It knows about specific tools and operating systems. It calls the engine.
+**The CLI layer** handles user-facing concerns: argument parsing, output formatting, clipboard access, and CAPSULE-PATCH ingestion. It knows about specific tools and operating systems. It calls the engine.
 
 **The engine layer** owns data correctness: schema validation, folding events into a projection, rendering the projection to Markdown, and evidence verification. It is pure logic with no network calls and no tool-specific knowledge. It calls the store.
 

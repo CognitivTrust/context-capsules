@@ -38,17 +38,7 @@ python3.12 -m venv .venv
 
 A `.capsule/` directory is already present at the target path.
 
-**Fix:** Use `capsule init --force` to re-initialize. This preserves the existing log and appends a new `intent` event; it does not delete history.
-
-### `capsule init` hangs at "Drafting initial intent..."
-
-You used `--draft llm` and either the API key is not set or the API endpoint is unreachable.
-
-**Fix:** Set the API key in the environment (`OPENAI_API_KEY` or the key for your compatible provider), or use `--draft git` (reads recent commits, no network) or `--draft none` (empty capsule):
-
-```bash
-capsule init --draft git
-```
+**Fix:** Use `capsule init --force` to re-initialize. This preserves the existing log; it does not delete history.
 
 ---
 
