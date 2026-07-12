@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Cold-start intent drafting from `capsule init`, including the git-history heuristic, the BYO-key LLM path, and their flags (`--draft`, `--no-git`, `--model`). `capsule init` now only creates empty `.capsule/` storage. Agents are expected to seed the first `intent` themselves via `capsule record` after inspecting the repo — see the updated `SKILL.md`.
+
 ### Fixed
 
 - Global flags (`--repo`, `--format`, `--verbose`) are now accepted after `record <kind>` and `task <verb>` subcommands, not just before the top-level command, matching the documented "global on every command" behavior.

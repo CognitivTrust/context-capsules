@@ -7,7 +7,7 @@ from capsule.exit_codes import ExitCode
 
 def test_tf8_engine_errors_exit_codes(invoke_main: Any, tmp_path: Any) -> None:
     """T-F8, T-M1: force engine errors -> exact code + actionable message."""
-    invoke_main(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_main(["--repo", str(tmp_path), "init"])
 
     # Force LockTimeout
     with patch("capsule.engine.engine.capsule_lock") as mock_lock:
@@ -26,7 +26,7 @@ def test_tf8_engine_errors_exit_codes(invoke_main: Any, tmp_path: Any) -> None:
 
 def test_tf9_verified_false_keeps_exit_0(invoke_cli: Any, tmp_path: Any) -> None:
     """T-F9: verified:false keeps exit 0."""
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
 
     # Missing local evidence remains data, not an error.
     res = invoke_cli(

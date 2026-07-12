@@ -45,7 +45,7 @@ def test_string_by_round_trip_is_byte_stable(tmp_path: Path) -> None:
 def test_pre_task_log_load_keeps_existing_payload_shape_plus_empty_open_tasks(
     invoke_cli: Any, tmp_path: Path
 ) -> None:
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
     invoke_cli(
         [
             "--repo",
@@ -208,7 +208,7 @@ def test_adr_malformed_inputs_fail(obj: dict[str, object], message: str) -> None
 
 
 def test_doctor_reports_open_tasks_and_exits_zero(invoke_cli: Any, tmp_path: Path) -> None:
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
     invoke_cli(
         [
             "--repo",
@@ -243,7 +243,7 @@ def test_doctor_reports_open_tasks_and_exits_zero(invoke_cli: Any, tmp_path: Pat
 def test_cli_task_start_and_end_use_shared_task_id_and_structured_by(
     invoke_cli: Any, tmp_path: Path
 ) -> None:
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
 
     start = invoke_cli(
         [
@@ -307,7 +307,7 @@ def test_cli_task_start_and_end_use_shared_task_id_and_structured_by(
 
 
 def test_cli_by_and_by_principal_mismatch_rejected(invoke_cli: Any, tmp_path: Path) -> None:
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
 
     res = invoke_cli(
         [

@@ -14,7 +14,7 @@ def test_doctor_empty_repo_exits_zero(invoke_cli: Any, tmp_path: Path) -> None:
 
 
 def test_doctor_reports_event_count(invoke_cli: Any, tmp_path: Path) -> None:
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
     invoke_cli(["--repo", str(tmp_path), "record", "progress", "--note", "done"])
 
     res = invoke_cli(["--repo", str(tmp_path), "--format", "json", "doctor"])
@@ -47,7 +47,7 @@ def test_doctor_json_shape(invoke_cli: Any, tmp_path: Path) -> None:
 def test_doctor_reports_schema_violation(invoke_cli: Any, tmp_path: Path) -> None:
     # A schema-invalid line (valid JSON, missing required fields) is reported as a
     # 'schema' problem, not as corruption, and doctor itself still exits 0.
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
     log = tmp_path / ".capsule" / "log.jsonl"
     with open(log, "ab") as handle:
         handle.write(b'{"t":"intent","id":"x"}\n')
@@ -63,7 +63,7 @@ def test_doctor_reports_schema_violation(invoke_cli: Any, tmp_path: Path) -> Non
 
 def test_doctor_reports_corrupt_log(invoke_cli: Any, tmp_path: Path) -> None:
     # Structurally broken bytes are reported as 'corrupt', distinct from a schema problem.
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
     log = tmp_path / ".capsule" / "log.jsonl"
     with open(log, "ab") as handle:
         handle.write(b'{"t":"intent","id":"1","at":"now","objective":"o"}\n')
@@ -78,7 +78,7 @@ def test_doctor_reports_corrupt_log(invoke_cli: Any, tmp_path: Path) -> None:
 
 
 def test_doctor_warns_when_understanding_never_set(invoke_cli: Any, tmp_path: Path) -> None:
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
     _append_events(
         tmp_path,
         [
@@ -112,7 +112,7 @@ def test_doctor_warns_when_understanding_never_set(invoke_cli: Any, tmp_path: Pa
 
 
 def test_doctor_warns_when_understanding_is_stale(invoke_cli: Any, tmp_path: Path) -> None:
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
     events = [
         Event(
             t="intent",
@@ -164,7 +164,7 @@ def test_doctor_warns_when_understanding_is_stale(invoke_cli: Any, tmp_path: Pat
 def test_doctor_skips_staleness_warning_for_fresh_understanding(
     invoke_cli: Any, tmp_path: Path
 ) -> None:
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
     _append_events(
         tmp_path,
         [

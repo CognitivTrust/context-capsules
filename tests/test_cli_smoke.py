@@ -27,13 +27,13 @@ def test_help(invoke_cli: Any) -> None:
 
 
 def test_init_success(invoke_cli: Any, tmp_path: Path) -> None:
-    res = invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    res = invoke_cli(["--repo", str(tmp_path), "init"])
     assert res.exit_code == 0
     assert "Initialized empty capsule" in res.stdout
 
 
 def test_init_json_success(invoke_cli: Any, tmp_path: Path) -> None:
-    res = invoke_cli(["--repo", str(tmp_path), "--format", "json", "init", "--draft", "none"])
+    res = invoke_cli(["--repo", str(tmp_path), "--format", "json", "init"])
     assert res.exit_code == 0
     payload = json.loads(res.stdout)
     assert "capsule_dir" in payload
@@ -44,8 +44,8 @@ def test_python_m_parity(invoke_cli: Any, invoke_module: Any, tmp_path: Path) ->
     p2 = tmp_path / "2"
     p1.mkdir()
     p2.mkdir()
-    cli_res = invoke_cli(["--repo", str(p1), "init", "--format", "json", "--draft", "none"])
-    mod_res = invoke_module(["--repo", str(p2), "init", "--format", "json", "--draft", "none"])
+    cli_res = invoke_cli(["--repo", str(p1), "init", "--format", "json"])
+    mod_res = invoke_module(["--repo", str(p2), "init", "--format", "json"])
     assert cli_res.exit_code == mod_res.exit_code
     # Output might contain different text if it's already present vs initialized
     # But exit code should match

@@ -9,7 +9,7 @@ def test_cli_round_trip(invoke_cli: Any, tmp_path: Path) -> None:
     # 33. init -> record -> load/show round-trip.
 
     # 1. init
-    res_init = invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    res_init = invoke_cli(["--repo", str(tmp_path), "init"])
     assert res_init.exit_code == 0
 
     # 2. record

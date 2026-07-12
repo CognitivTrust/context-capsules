@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 def test_tx2_clipboard_unavailable(invoke_main: Any, tmp_path: Any, monkeypatch: Any) -> None:
     """T-X2: clipboard fallback when unavailable."""
-    invoke_main(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_main(["--repo", str(tmp_path), "init"])
 
     # context
     with patch("capsule.cli.commands.context.copy_to_clipboard", return_value=False):
@@ -25,7 +25,7 @@ def test_tx2_clipboard_unavailable(invoke_main: Any, tmp_path: Any, monkeypatch:
 
 def test_tx2_clipboard_available(invoke_main: Any, tmp_path: Any, monkeypatch: Any) -> None:
     """T-X2: clipboard copy/paste successful."""
-    invoke_main(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_main(["--repo", str(tmp_path), "init"])
 
     # context
     with patch("capsule.cli.commands.context.copy_to_clipboard", return_value=True):

@@ -34,7 +34,6 @@ Context Capsules is a **local-first CLI tool**. Understanding its threat model h
 - **Path traversal / symlink escape** — evidence refs or file paths that could escape the repo root.
 - **Lock integrity** — advisory lock bypass that could corrupt the append-only log.
 - **Torn-line injection** — crafted log content that survives quarantine and corrupts state.
-- **BYO-key secret handling** — leakage of API keys read from env or keyring.
 - **Supply-chain** — a dependency (`portalocker`) that introduces a vulnerability.
 
 **Out of scope (by design):**
@@ -46,7 +45,7 @@ Context Capsules is a **local-first CLI tool**. Understanding its threat model h
 
 ## Security design notes
 
-- The core engine has no network code. The only optional network use is a BYO-key LLM drafter in `capsule init`, which is an opt-in CLI-edge feature that reads keys from the environment or system keyring and never persists them.
+- The tool has no network code — not in the core engine, not at the CLI edge.
 - All durable writes are atomic (tmp file + `os.replace`). A crash or kill mid-write leaves either the old file or the new one, never a partial.
 - File locking uses `portalocker` for cross-platform advisory locking — never POSIX-only `fcntl`.
 - Evidence references are treated strictly as data. They are never executed, evaluated, or passed to a shell.

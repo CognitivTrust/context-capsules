@@ -15,7 +15,7 @@ More text
 
 def test_th6_context_apply_roundtrip(invoke_cli: Any, tmp_path: Any, monkeypatch: Any) -> None:
     """T-H6: context->apply round-trip via stdin lands events."""
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
 
     patch_text = build_patch([{"id": "p1", "t": "progress", "note": "step 1"}])
 
@@ -35,7 +35,7 @@ def test_th6_context_apply_roundtrip(invoke_cli: Any, tmp_path: Any, monkeypatch
 
 def test_te1_empty_patch(invoke_cli: Any, tmp_path: Any, monkeypatch: Any) -> None:
     """T-E1: empty patch events -> exit 0, no-op."""
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
     patch_text = build_patch([])
     res = invoke_cli(["--repo", str(tmp_path), "--format", "json", "apply"], input=patch_text)
     assert res.exit_code == 0
@@ -44,7 +44,7 @@ def test_te1_empty_patch(invoke_cli: Any, tmp_path: Any, monkeypatch: Any) -> No
 
 def test_te2_idempotent_reapply(invoke_cli: Any, tmp_path: Any, monkeypatch: Any) -> None:
     """T-E2: idempotent re-apply."""
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
     patch_text = build_patch([{"id": "p1", "t": "progress", "note": "step 1"}])
 
     invoke_cli(["--repo", str(tmp_path), "apply"], input=patch_text)
@@ -59,7 +59,7 @@ def test_te2_idempotent_reapply(invoke_cli: Any, tmp_path: Any, monkeypatch: Any
 def test_apply_dry_run_reports_without_writing(
     invoke_cli: Any, tmp_path: Any, monkeypatch: Any
 ) -> None:
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
     patch_text = build_patch(
         [
             {"id": "p1", "t": "progress", "note": "step 1"},
@@ -84,7 +84,7 @@ def test_apply_dry_run_reports_without_writing(
 
 def test_te5_batch_internal_linkage(invoke_cli: Any, tmp_path: Any, monkeypatch: Any) -> None:
     """T-E5: batch internal linkage."""
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
 
     # Valid: question then resolution
     patch_text = build_patch(
@@ -109,7 +109,7 @@ def test_te5_batch_internal_linkage(invoke_cli: Any, tmp_path: Any, monkeypatch:
 
 def test_te6_id_collision(invoke_cli: Any, tmp_path: Any, monkeypatch: Any) -> None:
     """T-E6: id collision with different content -> exit 4."""
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
 
     patch_text1 = build_patch([{"id": "p1", "t": "progress", "note": "step 1"}])
     invoke_cli(["--repo", str(tmp_path), "apply"], input=patch_text1)
@@ -121,7 +121,7 @@ def test_te6_id_collision(invoke_cli: Any, tmp_path: Any, monkeypatch: Any) -> N
 
 def test_tf5_patch_rejection_matrix(invoke_cli: Any, tmp_path: Any, monkeypatch: Any) -> None:
     """T-F5: patch rejection matrix."""
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
 
     cases = [
         "no fence at all",
@@ -149,7 +149,7 @@ def test_tf5_patch_rejection_matrix(invoke_cli: Any, tmp_path: Any, monkeypatch:
 
 def test_tf6_all_or_nothing(invoke_cli: Any, tmp_path: Any, monkeypatch: Any) -> None:
     """T-F6: all-or-nothing (one bad event -> nothing appended)."""
-    invoke_cli(["--repo", str(tmp_path), "init", "--draft", "none"])
+    invoke_cli(["--repo", str(tmp_path), "init"])
 
     patch_text = build_patch(
         [
@@ -162,4 +162,4 @@ def test_tf6_all_or_nothing(invoke_cli: Any, tmp_path: Any, monkeypatch: Any) ->
 
     # Assert log is empty
     res_log = invoke_cli(["--repo", str(tmp_path), "--format", "json", "log"])
-    assert len(json.loads(res_log.stdout)) == 0  # no events since draft none
+    assert len(json.loads(res_log.stdout)) == 0  # no events yet
