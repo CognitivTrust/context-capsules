@@ -16,6 +16,7 @@
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-3DDC97?style=flat-square" alt="License: Apache 2.0"></a>
   <a href="pyproject.toml"><img src="https://img.shields.io/badge/python-3.11%2B-6366F1?style=flat-square" alt="Python 3.11+"></a>
+  <a href="https://pypi.org/project/context-capsules/"><img src="https://img.shields.io/pypi/v/context-capsules?style=flat-square&amp;color=6366F1" alt="PyPI version"></a>
   <a href="https://github.com/CognitivTrust/context-capsules/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/CognitivTrust/context-capsules/ci.yml?branch=main&style=flat-square&label=CI" alt="CI status"></a>
   <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/status-alpha%20v0.1.0-F59E0B?style=flat-square" alt="Status: alpha v0.1.0"></a>
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-8B5CF6?style=flat-square" alt="PRs welcome"></a>
@@ -233,7 +234,16 @@ To be precise: capture, evidence checks, and in-repo storage are the implemented
 ## Installation
 
 > [!NOTE]
-> Not on PyPI yet; install from source. Requires **Python 3.11+**. The only runtime dependency is [`portalocker`](https://pypi.org/project/portalocker/), for cross-platform file locking.
+> Available on [PyPI](https://pypi.org/project/context-capsules/). Requires **Python 3.11+**. The only runtime dependency is [`portalocker`](https://pypi.org/project/portalocker/), for cross-platform file locking.
+
+For a CLI available across your projects, install with [pipx](https://pipx.pypa.io/latest/how-to/install-pipx.html):
+
+```bash
+pipx install context-capsules
+capsule --version
+```
+
+To install into a virtual environment instead:
 
 <details open>
 <summary><strong>Windows (PowerShell)</strong></summary>
@@ -241,7 +251,7 @@ To be precise: capture, evidence checks, and in-repo storage are the implemented
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install -e .
+python -m pip install context-capsules
 capsule --version
 ```
 </details>
@@ -252,15 +262,15 @@ capsule --version
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install -e .
+python -m pip install context-capsules
 capsule --version
 ```
 </details>
 
-If `capsule` isn't on your `PATH`, use `python -m capsule` instead. On macOS, the system Python is often older than 3.11; install a newer interpreter with Homebrew or `pyenv` first.
+For a virtual-environment install, activate that environment or use its Python interpreter to run `python -m capsule`. For a pipx install, run `pipx ensurepath` and open a new terminal if `capsule` isn't found. On macOS, the system Python is often older than 3.11; install a newer interpreter with Homebrew or `pyenv` first.
 
 > [!NOTE]
-> Once published, `pipx install context-capsules` will be the preferred global install. Not available yet.
+> To contribute or use an editable source checkout, follow [CONTRIBUTING.md](CONTRIBUTING.md).
 
 <br/>
 
