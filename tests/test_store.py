@@ -1,9 +1,13 @@
+import errno
 import os
+import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
 from capsule.engine.errors import CapsuleError, CorruptLogLine, SchemaError
+from capsule.store import store as store_module
 from capsule.store.paths import CapsulePaths
 from capsule.store.store import Store
 
@@ -140,6 +144,125 @@ def test_atomic_render(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     assert dst == paths.render
 
     assert paths.render.read_text(encoding="utf-8") == "Hello World"
+
+
+@pytest.mark.skipif(sys.platform != "win32", reason="Windows file sharing semantics")
+def test_atomic_render_recovers_after_windows_reader_closes(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    paths = CapsulePaths.for_repo(tmp_path)
+    store = Store(paths)
+    store.create()
+    store.write_render("old render")
+    original_replace = os.replace
+    attempts = 0
+
+    with paths.render.open("rb") as reader:
+
+        def replace_while_reading(src: str | os.PathLike[str], dst: str | os.PathLike[str]) -> None:
+            nonlocal attempts
+            attempts += 1
+            try:
+                original_replace(src, dst)
+            except PermissionError:
+                # Release a real Windows handle that prevented the first replacement.
+                reader.close()
+                raise
+
+        monkeypatch.setattr(os, "replace", replace_while_reading)
+        store.write_render("new render")
+
+    assert attempts >= 2
+    assert paths.render.read_text(encoding="utf-8") == "new render"
+    assert set(paths.capsule_dir.iterdir()) == {paths.log, paths.render}
+
+
+@pytest.mark.parametrize("winerror", [5, 32, 33])
+def test_atomic_render_retries_windows_file_contention(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, winerror: int
+) -> None:
+    paths = CapsulePaths.for_repo(tmp_path)
+    store = Store(paths)
+    store.create()
+    store.write_render("old render")
+    original_replace = os.replace
+    attempts = 0
+
+    def busy_replace(src: str | os.PathLike[str], dst: str | os.PathLike[str]) -> None:
+        nonlocal attempts
+        attempts += 1
+        if attempts <= 2:
+            assert paths.render.read_text(encoding="utf-8") == "old render"
+            error = PermissionError(errno.EACCES, "render is temporarily in use")
+            error.winerror = winerror
+            raise error
+        original_replace(src, dst)
+
+    monkeypatch.setattr(os, "replace", busy_replace)
+    store.write_render("new render")
+
+    assert attempts == 3
+    assert paths.render.read_text(encoding="utf-8") == "new render"
+    assert set(paths.capsule_dir.iterdir()) == {paths.log, paths.render}
+
+
+def test_atomic_render_stops_retrying_persistent_windows_denial(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    paths = CapsulePaths.for_repo(tmp_path)
+    store = Store(paths)
+    store.create()
+    store.write_render("old render")
+    elapsed = 0.0
+    attempts = 0
+
+    def advance_time(delay: float) -> None:
+        nonlocal elapsed
+        elapsed += delay
+
+    monkeypatch.setattr(
+        store_module, "time", SimpleNamespace(monotonic=lambda: elapsed, sleep=advance_time)
+    )
+
+    def denied_replace(src: str | os.PathLike[str], dst: str | os.PathLike[str]) -> None:
+        nonlocal attempts
+        attempts += 1
+        error = PermissionError(errno.EACCES, "access remains denied")
+        error.winerror = 5
+        raise error
+
+    monkeypatch.setattr(os, "replace", denied_replace)
+    with pytest.raises(CapsuleError, match="failed to write render"):
+        store.write_render("new render")
+
+    assert attempts > 1
+    assert elapsed <= 1.1
+    assert paths.render.read_text(encoding="utf-8") == "old render"
+    assert set(paths.capsule_dir.iterdir()) == {paths.log, paths.render}
+
+
+@pytest.mark.parametrize("error_number", [errno.EACCES, errno.ENOENT, errno.ENOSPC])
+def test_atomic_render_does_not_retry_other_errors(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, error_number: int
+) -> None:
+    paths = CapsulePaths.for_repo(tmp_path)
+    store = Store(paths)
+    store.create()
+    store.write_render("old render")
+    attempts = 0
+
+    def failed_replace(src: str | os.PathLike[str], dst: str | os.PathLike[str]) -> None:
+        nonlocal attempts
+        attempts += 1
+        raise OSError(error_number, "replacement failed")
+
+    monkeypatch.setattr(os, "replace", failed_replace)
+    with pytest.raises(CapsuleError, match="failed to write render"):
+        store.write_render("new render")
+
+    assert attempts == 1
+    assert paths.render.read_text(encoding="utf-8") == "old render"
+    assert set(paths.capsule_dir.iterdir()) == {paths.log, paths.render}
 
 
 def test_cross_platform_paths() -> None:

@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Standardize the distribution name on `context-capsules` to match the GitHub repository. The CLI command and Python import remain `capsule`.
 
+### Fixed
+
+- Retry atomic render replacement for up to one second when Windows reports access or sharing contention, and clean up temporary renders on failure. Concurrent writers can finish appending after a transient render-file denial.
+
 ## [0.1.0] - 2026-08-06
 
 Initial public release of **Context Capsules**: a local-first, append-only decision log stored in-repo, driven by the `capsule` CLI. This establishes the first usable V1 surface, packaged for PyPI as `context-capsules`.

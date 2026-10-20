@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 import os
 import tempfile
+import time
+from contextlib import suppress
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -128,6 +130,7 @@ class Store:
 
     def write_render(self, text: str) -> None:
         self.ensure_layout_safe()
+        tmp_name: str | None = None
         try:
             with tempfile.NamedTemporaryFile(
                 "w",
@@ -136,11 +139,15 @@ class Store:
                 dir=self.paths.capsule_dir,
                 delete=False,
             ) as handle:
-                handle.write(text)
                 tmp_name = handle.name
-            os.replace(tmp_name, self.paths.render)
+                handle.write(text)
+            _replace_render(tmp_name, self.paths.render)
         except OSError as exc:
             raise CapsuleError(f"failed to write render at {self.paths.render}: {exc}") from exc
+        finally:
+            if tmp_name is not None:
+                with suppress(OSError):
+                    os.unlink(tmp_name)
 
     def stat_key(self) -> tuple[str, int, int]:
         try:
@@ -150,6 +157,21 @@ class Store:
         except OSError as exc:
             raise CapsuleError(f"failed to stat {self.paths.log}: {exc}") from exc
         return (str(self.paths.log), stat.st_size, stat.st_mtime_ns)
+
+
+def _replace_render(source: str, target: Path) -> None:
+    # Windows can briefly deny replacement while another process has a file handle open.
+    # Keep the old render intact and retry the atomic replace, never truncate it in place.
+    deadline = time.monotonic() + 1.0
+    while True:
+        try:
+            os.replace(source, target)
+            return
+        except OSError as exc:
+            remaining = deadline - time.monotonic()
+            if getattr(exc, "winerror", None) not in (5, 32, 33) or remaining <= 0:
+                raise
+            time.sleep(min(0.05, remaining))
 
 
 class _LineParseError(Exception):
