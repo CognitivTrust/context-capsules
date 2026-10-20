@@ -64,7 +64,7 @@ capsule apply --clip
 
 ### Why isn't this on PyPI yet?
 
-The package is in pre-release (`v0.1.0`). Once the public OSS launch is stable, it will be published as `context-capsule` on PyPI, and `pipx install context-capsule` will be the recommended install path.
+The package is in pre-release (`v0.1.0`). Once the public OSS launch is stable, it will be published as `context-capsules` on PyPI, and `pipx install context-capsules` will be the recommended install path.
 
 ### I get "capsule: command not found" after installing.
 
@@ -72,7 +72,7 @@ Your virtualenv `bin/` or `Scripts/` directory is probably not on `PATH`. Use `p
 
 ### Can I install it globally without a venv?
 
-Use `pipx` once the package is on PyPI: `pipx install context-capsule`. `pipx` installs the tool in an isolated environment and puts the `capsule` binary on your PATH.
+Use `pipx` once the package is on PyPI: `pipx install context-capsules`. `pipx` installs the tool in an isolated environment and puts the `capsule` binary on your PATH.
 
 ### What Python versions are supported?
 

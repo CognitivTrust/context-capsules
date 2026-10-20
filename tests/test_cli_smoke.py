@@ -16,7 +16,7 @@ STATUS_TEXT = "Context Capsules: scaffolding only - no engine active yet (Phase 
 def test_version(invoke_cli: Any) -> None:
     res = invoke_cli(["--version"])
     assert res.exit_code == 0
-    version_str = importlib.metadata.version("context-capsule")
+    version_str = importlib.metadata.version("context-capsules")
     assert res.stdout.strip() == f"capsule {version_str}"
 
 

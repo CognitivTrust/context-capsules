@@ -2,4 +2,4 @@
 
 from importlib.metadata import version
 
-__version__: str = version("context-capsule")
+__version__: str = version("context-capsules")
