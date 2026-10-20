@@ -9,29 +9,56 @@ This guide covers installation, initialization, daily usage, and troubleshooting
 
 ## Install
 
-Context Capsules is not on PyPI yet. Install from a local checkout for now.
+Context Capsules is available on [PyPI](https://pypi.org/project/context-capsules/) as `context-capsules`. Installing it provides the `capsule` command and the `capsule` Python module.
 
-### Windows (PowerShell)
+### Recommended: pipx
+
+[Install pipx](https://pipx.pypa.io/latest/how-to/install-pipx.html), then run:
+
+```bash
+pipx install context-capsules
+capsule --version
+```
+
+pipx manages an isolated environment and makes `capsule` available across your projects. If the command is not found, run `pipx ensurepath` and open a new terminal.
+
+### Virtual environment: Windows (PowerShell)
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-python -m pip install -e .
+python -m pip install context-capsules
 capsule --version
 ```
 
-### macOS / Linux
+### Virtual environment: macOS / Linux
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -e .
+python -m pip install context-capsules
 capsule --version
 ```
 
-If `capsule` is not on your `PATH`, use `python -m capsule` as a drop-in replacement.
+For a virtual-environment install, activate that environment or use its Python interpreter to run `python -m capsule` as a drop-in replacement.
+
+### Upgrade
+
+For pipx installations:
+
+```bash
+pipx upgrade context-capsules
+```
+
+For pip installations, activate the environment used for installation, then run:
+
+```bash
+python -m pip install --upgrade context-capsules
+```
+
+For an editable source installation, follow [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Initialize a Repository
 

@@ -62,21 +62,21 @@ capsule apply --clip
 
 ## Installation
 
-### Why isn't this on PyPI yet?
+### How do I install it from PyPI?
 
-The package is in pre-release (`v0.1.0`). Once the public OSS launch is stable, it will be published as `context-capsules` on PyPI, and `pipx install context-capsules` will be the recommended install path.
+Install the published [context-capsules package](https://pypi.org/project/context-capsules/) with `pipx install context-capsules` for a CLI available across your projects. You can also run `python -m pip install context-capsules` inside a virtual environment. Both provide the `capsule` command. See [SETUP.md](../SETUP.md) for installation and upgrade instructions.
 
 ### I get "capsule: command not found" after installing.
 
-Your virtualenv `bin/` or `Scripts/` directory is probably not on `PATH`. Use `python -m capsule` as a drop-in replacement for `capsule`. Or ensure the venv is activated before running commands.
+For a pipx install, run `pipx ensurepath` and open a new terminal. For a pip install, activate the virtual environment used for installation, or use that environment's Python interpreter to run `python -m capsule`.
 
 ### Can I install it globally without a venv?
 
-Use `pipx` once the package is on PyPI: `pipx install context-capsules`. `pipx` installs the tool in an isolated environment and puts the `capsule` binary on your PATH.
+Use `pipx install context-capsules`. pipx creates and manages an isolated environment and puts the `capsule` command on your PATH. See the [pipx installation guide](https://pipx.pypa.io/latest/how-to/install-pipx.html) if pipx is not installed yet.
 
 ### What Python versions are supported?
 
-Python 3.11 and 3.12. Python 3.10 and earlier are not supported.
+Python 3.11 or newer is required. CI currently covers Python 3.11 and 3.12. Python 3.10 and earlier are not supported.
 
 ---
 

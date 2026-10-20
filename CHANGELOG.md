@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Standardize the distribution name on `context-capsules` to match the GitHub repository. The CLI command and Python import remain `capsule`.
+- Update installation documentation for the published PyPI package, including pipx installation, virtual-environment alternatives, upgrades, and the manual production approval step.
 
 ### Fixed
 

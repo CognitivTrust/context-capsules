@@ -93,19 +93,31 @@ The `release.yml` workflow triggers automatically on the tag push.
 ### 7. Monitor the release workflow
 
 The workflow:
-1. Builds the distribution.
-2. Verifies the tag matches the package version.
+
+1. Verifies the tag matches the package version.
+2. Builds the distribution.
 3. Publishes to TestPyPI.
 4. Smoke-tests the TestPyPI install (`capsule --version` must succeed).
-5. Publishes to PyPI.
+5. Waits for manual approval on the `pypi` environment, then publishes the same artifacts to PyPI.
 6. Creates a GitHub release with the changelog entry as the release notes.
 
-If any step fails, see the workflow logs and fix before re-tagging.
+Before approving PyPI publication, install the candidate into a fresh virtual environment and exercise its CLI:
+
+```bash
+python -m pip install portalocker==2.10.1
+python -m pip install --index-url https://test.pypi.org/simple/ --no-deps context-capsules==X.Y.Z
+capsule --version
+capsule --help
+```
+
+Try `init`, `record`, and `load` in a temporary repository. When satisfied, open the workflow run and select **Review deployments → pypi → Approve and deploy**. The required reviewer can approve their own release when **Prevent self-review** is disabled.
+
+If any step fails, inspect the workflow logs before retrying. Preserve published version tags; a code change after an upload needs a new package version and tag.
 
 ### 8. Verify the PyPI release
 
 ```bash
-pip install context-capsules==X.Y.Z
+python -m pip install --index-url https://pypi.org/simple/ context-capsules==X.Y.Z
 capsule --version
 ```
 
@@ -113,6 +125,7 @@ capsule --version
 
 - Announce in GitHub Discussions (Show and Tell).
 - Update the `[Unreleased]` section in `CHANGELOG.md` on main if needed.
+- Keep installation instructions aligned with the published package. PyPI displays the README included in the uploaded distribution; later GitHub README edits are included when the next version is packaged.
 
 ## Hotfix releases
 
