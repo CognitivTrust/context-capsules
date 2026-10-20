@@ -27,7 +27,7 @@ jobs:
 
       - name: Verify tag matches package version
         run: |
-          PKG_VERSION=$(python -c "import importlib.metadata; print(importlib.metadata.version('context-capsule'))")
+          PKG_VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
           TAG_VERSION="${GITHUB_REF_NAME#v}"
           if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
             echo "ERROR: Tag $GITHUB_REF_NAME does not match package version $PKG_VERSION"
@@ -66,9 +66,10 @@ jobs:
           python-version: "3.11"
       - name: Install from TestPyPI
         run: |
-          pip install --index-url https://test.pypi.org/simple/ \
-            --extra-index-url https://pypi.org/simple/ \
-            context-capsule
+          RELEASE_VERSION="${GITHUB_REF_NAME#v}"
+          python -m pip install --index-url https://pypi.org/simple/ portalocker==2.10.1
+          python -m pip install --index-url https://test.pypi.org/simple/ \
+            --no-deps "context-capsules==$RELEASE_VERSION"
       - run: capsule --version
 
   publish-pypi:
@@ -102,7 +103,7 @@ jobs:
         id: changelog
         run: |
           python - <<'EOF'
-          import re, sys
+          import os, re
           text = open("CHANGELOG.md").read()
           # Extract the first versioned section (not [Unreleased])
           m = re.search(r"## \[\d+\.\d+\.\d+\][^\n]*\n(.*?)(?=\n## |\Z)", text, re.DOTALL)

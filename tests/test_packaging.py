@@ -4,7 +4,7 @@ import capsule
 
 
 def test_version_matches_metadata() -> None:
-    dist_version = importlib.metadata.version("context-capsule")
+    dist_version = importlib.metadata.version("context-capsules")
     assert capsule.__version__ == dist_version
     assert isinstance(capsule.__version__, str)
     assert len(capsule.__version__) > 0

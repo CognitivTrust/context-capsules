@@ -3,14 +3,14 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "context-capsule"
+name = "context-capsules"
 version = "0.1.0"
 description = "Local-first, append-only context capsule for a repository, driven by the capsule CLI."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE"]
-authors = [{ name = "Context Capsules contributors" }]
+authors = [{ name = "Yash Shah", email = "yash@cognitivtrust.com" }]
 keywords = ["context", "capsule", "cli", "local-first", "append-only", "ai", "developer-tools"]
 classifiers = [
     "Development Status :: 3 - Alpha",

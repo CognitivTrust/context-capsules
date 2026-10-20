@@ -111,6 +111,7 @@ def test_n_process_append_stress(tmp_path: Path) -> None:
 
     for p in processes:
         p.join()
+        assert p.exitcode == 0, f"append worker {p.pid} failed with exit code {p.exitcode}"
 
     proj = engine.load()
     assert proj.event_count == N * M
@@ -120,6 +121,7 @@ def test_n_process_append_stress(tmp_path: Path) -> None:
     # Check all ids are present and unique
     ids = {e.id for e in events}
     assert len(ids) == N * M
+    assert (tmp_path / ".capsule" / "capsule.md").read_text(encoding="utf-8") == engine.render()
 
 
 def test_no_capsule(tmp_path: Path) -> None:

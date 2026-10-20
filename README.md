@@ -260,7 +260,7 @@ capsule --version
 If `capsule` isn't on your `PATH`, use `python -m capsule` instead. On macOS, the system Python is often older than 3.11; install a newer interpreter with Homebrew or `pyenv` first.
 
 > [!NOTE]
-> Once published, `pipx install context-capsule` will be the preferred global install. Not available yet.
+> Once published, `pipx install context-capsules` will be the preferred global install. Not available yet.
 
 <br/>
 

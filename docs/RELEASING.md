@@ -5,8 +5,8 @@ This document is for the project's current sole maintainer, Yash Shah. It covers
 ## Prerequisites
 
 - Write access to the `CognitivTrust/context-capsules` repository on GitHub.
-- PyPI maintainer role on the `context-capsule` package.
-- TestPyPI maintainer role on the `context-capsule` package.
+- PyPI maintainer role on the `context-capsules` package.
+- TestPyPI maintainer role on the `context-capsules` package.
 - GitHub Environments configured: `testpypi` and `pypi` (with Trusted Publisher / OIDC enabled).
 
 ## Versioning policy
@@ -105,7 +105,7 @@ If any step fails, see the workflow logs and fix before re-tagging.
 ### 8. Verify the PyPI release
 
 ```bash
-pip install context-capsule==X.Y.Z
+pip install context-capsules==X.Y.Z
 capsule --version
 ```
 
@@ -130,4 +130,6 @@ The release workflow uses GitHub's OIDC Trusted Publisher to publish without sto
 
 - Go to **Settings → Environments** and create `testpypi` and `pypi`.
 - On TestPyPI and PyPI, add a Trusted Publisher for `CognitivTrust/context-capsules` with the environment name matching.
+- Use PyPI project name `context-capsules` and workflow filename `release.yml` on both services.
+- In both GitHub environments, allow tags matching `v*` under **Deployment branches and tags**. Allowing only the `main` branch does not permit this tag-triggered workflow.
 - Set the `pypi` environment to require a manual approval review before publishing (recommended for production).
